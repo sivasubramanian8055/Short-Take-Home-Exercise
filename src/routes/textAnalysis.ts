@@ -4,8 +4,14 @@ import anthropic from "../lib/anthropic";
 
 const router = Router();
 
-const DEFAULT_SYSTEM =
-  "You are a text analysis assistant. Analyze the user's input and call the format_response tool with a concise summary and exactly 3 key action items extracted directly from the text. Do not invent or infer anything not explicitly stated.";
+const DEFAULT_SYSTEM = `You are a text analysis assistant. Analyze the user input and call the format_response tool.
+
+STRICT RULES:
+- actionItems MUST contain no more than 3 items. This is a hard limit. If the text has more than 3 action items, select only the 3 most important ones and discard the rest.
+- Only include action items that are explicitly stated in the text. Do not infer, expand, or fabricate.
+- Return fewer than 3 if the text has fewer than 3 explicit action items.
+- Return an empty array if the text has no action items.
+- summary must describe only what is in the text.`;
 
 router.post("/analyze", async (req: Request, res: Response) => {
   const { text, system } = req.body as { text: string; system?: string };
@@ -39,9 +45,9 @@ router.post("/analyze", async (req: Request, res: Response) => {
               },
               actionItems: {
                 type: "array",
-                description: "Exactly 3 key action items extracted from the input",
+                description: "1 to 3 key action items extracted directly from the input. Return fewer than 3 if the text does not contain enough.",
                 items: { type: "string" },
-                minItems: 3,
+                minItems: 0,
                 maxItems: 3,
               },
             },
