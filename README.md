@@ -39,11 +39,11 @@ ANTHROPIC_API_KEY=your-api-key-here
 
 ```json
 {
-  "summary": "Three tasks are assigned across frontend, backend, and QA teams ahead of the release.",
-  "actionItems": [
-    "The frontend team needs to fix the broken navigation menu on Safari.",
-    "The backend team must upgrade the database to the latest version.",
-    "The QA team needs to complete regression testing before the release."
-  ]
+    "summary": "Three teams have critical tasks to complete: the frontend team must fix the Safari navigation menu, the backend team must upgrade the database, and the QA team must complete regression testing before release.",
+    "actionItems": [
+        "Fix the broken navigation menu on Safari (frontend team)",
+        "Upgrade the database to the latest version (backend team)",
+        "Complete regression testing before the release (QA team)"
+    ]
 }
 ```
